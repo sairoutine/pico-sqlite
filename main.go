@@ -30,20 +30,20 @@ func main() {
 }
 
 
-func new_input_buffer() InputBuffer {
+func new_input_buffer() *InputBuffer {
 	input_buffer := InputBuffer{};
 	input_buffer.Buffer = "";
 	input_buffer.BufferLength = 0;
 	input_buffer.InputLength = 0;
 
-	return input_buffer;
+	return &input_buffer;
 }
 
 func print_prompt() {
 	fmt.Printf("db > ");
 }
 
-func read_input(input_buffer InputBuffer) {
+func read_input(input_buffer *InputBuffer) {
 	r := bufio.NewReader(os.Stdin);
 	line, err := r.ReadString('\n')
 
