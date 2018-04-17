@@ -37,7 +37,9 @@ func new_input_buffer() InputBuffer {
 }
 
 func print_prompt() {
+	fmt.Printf("db > ");
 }
+
 func read_input(input_buffer InputBuffer) {
 }
 
