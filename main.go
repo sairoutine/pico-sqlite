@@ -2,6 +2,9 @@ package main
 import (
 	"os"
 	"fmt"
+	"bufio"
+	"io"
+	"strings"
 );
 
 type InputBuffer struct {
@@ -41,6 +44,19 @@ func print_prompt() {
 }
 
 func read_input(input_buffer InputBuffer) {
+	r := bufio.NewReader(os.Stdin);
+	line, err := r.ReadString('\n')
+
+	if err == io.EOF {
+		return;
+	} else if err != nil {
+		fmt.Printf("Error reading input\n");
+		os.Exit(1);
+	}
+
+	// Ignore trailing newline
+	input_buffer.Buffer = strings.TrimRight(line, "\n");
+	input_buffer.InputLength = len(input_buffer.Buffer);
 }
 
 
