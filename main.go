@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"bufio"
 	"io"
-	"strings"
 );
 
 type InputBuffer struct {
-	Buffer string
+	Buffer []byte
 	BufferLength int
 	InputLength int
 }
@@ -21,7 +20,7 @@ func main() {
 		print_prompt();
 		read_input(input_buffer);
 
-		if input_buffer.Buffer == ".exit" {
+		if string(input_buffer.Buffer) == ".exit" {
 			os.Exit(0);
 		} else {
 			fmt.Printf("Unrecognized command '%s'.\n", input_buffer.Buffer);
@@ -32,7 +31,7 @@ func main() {
 
 func new_input_buffer() *InputBuffer {
 	input_buffer := InputBuffer{};
-	input_buffer.Buffer = "";
+	input_buffer.Buffer = []byte{};
 	input_buffer.BufferLength = 0;
 	input_buffer.InputLength = 0;
 
@@ -45,7 +44,7 @@ func print_prompt() {
 
 func read_input(input_buffer *InputBuffer) {
 	r := bufio.NewReader(os.Stdin);
-	line, err := r.ReadString('\n')
+	line, err := r.ReadBytes('\n')
 
 	if err == io.EOF {
 		return;
@@ -55,8 +54,9 @@ func read_input(input_buffer *InputBuffer) {
 	}
 
 	// Ignore trailing newline
-	input_buffer.Buffer = strings.TrimRight(line, "\n");
-	input_buffer.InputLength = len(input_buffer.Buffer);
+	line_length := len(line) - 1;
+	input_buffer.Buffer = line[0:line_length];
+	input_buffer.InputLength = line_length;
 }
 
 
