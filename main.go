@@ -92,8 +92,13 @@ func read_input(input_buffer *InputBuffer) {
 }
 
 func do_meta_command(input_buffer *InputBuffer) MetaCommandResult {
-	return META_COMMAND_SUCCESS;
+	if (string(input_buffer.Buffer) == ".exit") {
+		os.Exit(0);
+	}
+
+	return META_COMMAND_UNRECOGNIZED_COMMAND;
 }
+
 func prepare_statement(input_buffer *InputBuffer, statement *Statement) PrepareResult {
 	return PREPARE_SUCCESS;
 }
