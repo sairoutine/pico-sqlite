@@ -6,6 +6,7 @@ import (
 	"io"
 );
 
+// struct
 type InputBuffer struct {
 	Buffer []byte
 	BufferLength int
