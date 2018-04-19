@@ -49,6 +49,7 @@ func main() {
 					continue;
 				case (META_COMMAND_UNRECOGNIZED_COMMAND):
 					fmt.Printf("Unrecognized command '%s'\n", input_buffer.Buffer);
+					continue;
 			}
 		}
 
