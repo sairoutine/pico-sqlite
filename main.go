@@ -15,6 +15,12 @@ type InputBuffer struct {
 }
 type Statement struct {
 	Type StatementType
+	RowToInsert Row // only used by insert statement
+}
+type Row struct {
+	Id int
+	Username string
+	Email string
 }
 
 // enum
