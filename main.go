@@ -12,6 +12,10 @@ type InputBuffer struct {
 	BufferLength int
 	InputLength int
 }
+type Statement struct {
+	Type StatementType
+}
+
 // enum
 type MetaCommandResult int;
 const (
@@ -25,11 +29,12 @@ const (
     PREPARE_UNRECOGNIZED_STATEMENT
 )
 
-type Statement int;
+type StatementType int;
 const (
-    STATEMENT_INSERT Statement = iota
+    STATEMENT_INSERT StatementType = iota
     STATEMENT_SELECT
 )
+
 
 func main() {
 	input_buffer := new_input_buffer();
