@@ -120,5 +120,13 @@ func prepare_statement(input_buffer *InputBuffer, statement *Statement) PrepareR
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 func execute_statement(statement *Statement) {
+	switch (statement.Type) {
+		case (STATEMENT_INSERT):
+			fmt.Printf("This is where we would do an insert.\n");
+			break;
+		case (STATEMENT_SELECT):
+			fmt.Printf("This is where we would do a select.\n");
+			break;
+	}
 }
 
