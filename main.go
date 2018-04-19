@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"bufio"
 	"io"
+	"strings"
 );
 
 // struct
@@ -107,7 +108,16 @@ func do_meta_command(input_buffer *InputBuffer) MetaCommandResult {
 }
 
 func prepare_statement(input_buffer *InputBuffer, statement *Statement) PrepareResult {
-	return PREPARE_SUCCESS;
+	if (strings.HasPrefix(string(input_buffer.Buffer), "insert")) {
+		statement.Type = STATEMENT_INSERT;
+		return PREPARE_SUCCESS;
+	}
+	if (strings.HasPrefix(string(input_buffer.Buffer), "select")) {
+		statement.Type = STATEMENT_SELECT;
+		return PREPARE_SUCCESS;
+	}
+
+	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 func execute_statement(statement *Statement) {
 }
