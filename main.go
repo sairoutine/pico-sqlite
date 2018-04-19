@@ -28,6 +28,7 @@ type PrepareResult int;
 const (
     PREPARE_SUCCESS PrepareResult = iota
     PREPARE_UNRECOGNIZED_STATEMENT
+	PREPARE_SYNTAX_ERROR
 )
 
 type StatementType int;
@@ -110,6 +111,14 @@ func do_meta_command(input_buffer *InputBuffer) MetaCommandResult {
 func prepare_statement(input_buffer *InputBuffer, statement *Statement) PrepareResult {
 	if (strings.HasPrefix(string(input_buffer.Buffer), "insert")) {
 		statement.Type = STATEMENT_INSERT;
+		args_assigned, _ := fmt.Sscanf(string(input_buffer.Buffer), "insert %d %s %s",
+			&(statement.RowToInsert.Id),
+			statement.RowToInsert.Username,
+			statement.RowToInsert.Email);
+		if (args_assigned < 3) {
+			return PREPARE_SYNTAX_ERROR;
+		}
+
 		return PREPARE_SUCCESS;
 	}
 	if (strings.HasPrefix(string(input_buffer.Buffer), "select")) {
