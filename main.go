@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"io"
 	"strings"
+	"unsafe"
 );
 
 // struct
@@ -42,6 +43,15 @@ const (
     STATEMENT_INSERT StatementType = iota
     STATEMENT_SELECT
 )
+
+var info Row;
+const ID_SIZE uintptr = unsafe.Sizeof(info.Id);
+const USERNAME_SIZE uintptr = unsafe.Sizeof(info.Username);
+const EMAIL_SIZE uintptr = unsafe.Sizeof(info.Email);
+const ID_OFFSET uintptr = 0;
+const USERNAME_OFFSET uintptr = ID_OFFSET + ID_SIZE;
+const EMAIL_OFFSET uintptr = USERNAME_OFFSET + USERNAME_SIZE;
+const ROW_SIZE uintptr = ID_SIZE + USERNAME_SIZE + EMAIL_SIZE;
 
 
 func main() {
