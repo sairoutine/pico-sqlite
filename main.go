@@ -18,10 +18,12 @@ type Statement struct {
 	Type StatementType
 	RowToInsert Row // only used by insert statement
 }
+const COLUMN_USERNAME_SIZE int = 32;
+const COLUMN_EMAIL_SIZE int = 255;
 type Row struct {
 	Id int
-	Username string
-	Email string
+	Username [COLUMN_USERNAME_SIZE]byte
+	Email [COLUMN_EMAIL_SIZE]byte
 }
 
 // enum
