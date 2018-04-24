@@ -7,6 +7,8 @@ import (
 	"strings"
 	"unsafe"
 );
+//#include <string.h>
+import "C"
 
 // struct
 type InputBuffer struct {
@@ -156,4 +158,16 @@ func execute_statement(statement *Statement) {
 			break;
 	}
 }
+func serialize_row(source *Row, destination uintptr) {
+	C.memcpy(unsafe.Pointer(destination + ID_OFFSET), unsafe.Pointer(&source.Id), C.size_t(ID_SIZE));
+	C.memcpy(unsafe.Pointer(destination + USERNAME_OFFSET), unsafe.Pointer(&source.Username), C.size_t(USERNAME_SIZE));
+	C.memcpy(unsafe.Pointer(destination + EMAIL_OFFSET), unsafe.Pointer(&source.Email), C.size_t(EMAIL_SIZE));
+}
+
+func deserialize_row(source uintptr, destination *Row) {
+	C.memcpy(unsafe.Pointer(&destination.Id),       unsafe.Pointer(source + ID_OFFSET), C.size_t(ID_SIZE));
+	C.memcpy(unsafe.Pointer(&destination.Username), unsafe.Pointer(source + USERNAME_OFFSET), C.size_t(USERNAME_SIZE));
+	C.memcpy(unsafe.Pointer(&destination.Email),    unsafe.Pointer(source + EMAIL_OFFSET), C.size_t(EMAIL_SIZE));
+}
+
 
