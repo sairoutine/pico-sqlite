@@ -20,6 +20,17 @@ type Statement struct {
 	Type StatementType
 	RowToInsert Row // only used by insert statement
 }
+const PAGE_SIZE int = 4096;
+const TABLE_MAX_PAGES int = 100;
+const ROWS_PER_PAGE int = int(PAGE_SIZE) / int(ROW_SIZE);
+const TABLE_MAX_ROWS int = ROWS_PER_PAGE * TABLE_MAX_PAGES;
+
+type Table struct {
+       Pages[TABLE_MAX_PAGES]byte
+       NumRows int
+}
+
+
 const COLUMN_USERNAME_SIZE int = 32;
 const COLUMN_EMAIL_SIZE int = 255;
 type Row struct {
